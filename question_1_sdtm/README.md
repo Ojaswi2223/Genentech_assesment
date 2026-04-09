@@ -145,6 +145,4 @@ covering:
 
 ---
 
-- AI coding assistants were used to accelerate development, consistent
-  with assessment guidelines
-- All derivation logic is inde
+- AI coding assistants were used to accelerate development, 
