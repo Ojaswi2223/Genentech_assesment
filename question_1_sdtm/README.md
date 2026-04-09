@@ -145,4 +145,4 @@ covering:
 
 ---
 
-- AI coding assistants were used to accelerate development, 
+- AI coding assistants were used to accelerate development,
