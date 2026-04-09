@@ -145,9 +145,6 @@ covering:
 
 ---
 
-## Notes
-
 - AI coding assistants were used to accelerate development, consistent
   with assessment guidelines
-- All derivation logic is independently verified against CDISC specifications
-- Code follows the [Tidyverse R Style Guide](https://style.tidyverse.org/)
+- All derivation logic is inde
