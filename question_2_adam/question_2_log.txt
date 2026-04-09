@@ -1,0 +1,176 @@
+=============================================================
+  ADaM ADSL Dataset Creation Log
+  Roche/Genentech ADS Programmer Assessment - Question 2
+  Run Timestamp: 2026-04-09 15:21:13
+=============================================================
+
+STEP 1: Loading SDTM source datasets...
+  dm rows : 306 | cols: 28
+  vs rows : 29643 | cols: 24
+  ex rows : 591 | cols: 17
+  ds rows : 850 | cols: 13
+  ae rows : 1191 | cols: 35
+
+STEP 2: Initializing ADSL from DM domain...
+  ADSL initialized: 306 subjects
+
+STEP 3: Deriving AGEGR9 and AGEGR9N (age groupings)...
+  AGEGR9 frequency:
+
+    >50 18 - 50 
+    305       1 
+  AGEGR9N frequency:
+
+  2   3 
+  1 305 
+
+STEP 4: Deriving ITTFL (Intent-to-Treat flag)...
+  ITTFL frequency:
+
+  Y 
+306 
+
+STEP 5: Preparing EX dataset for treatment datetime derivation...
+  EX pre-processing complete.
+  EX rows: 591
+
+STEP 6: Deriving TRTSDTM, TRTSTMF, TRTEDTM, TRTETMF...
+  TRTSDTM/TRTSTMF/TRTEDTM/TRTETMF derived.
+  Subjects with TRTSDTM: 254
+  Subjects with TRTEDTM: 252
+
+STEP 7: Deriving TRTSDT and TRTEDT from datetimes...
+  TRTSDT and TRTEDT derived.
+
+STEP 8: Deriving LSTAVLDT (Last Known Alive Date)...
+  VS records with valid result and complete date: 29635
+  AE records with complete onset date: 1165
+  DS records with complete disposition date: 850
+  Subjects with LSTAVLDT: 306
+
+STEP 9: Deriving RFSTDT and RFENDT from DM reference dates...
+  RFSTDT and RFENDT derived.
+
+STEP 10: Selecting and ordering final ADSL variables...
+  Final ADSL: 306 rows x 30 columns
+  Variables : STUDYID, USUBJID, SUBJID, SITEID, AGE, AGEU, AGEGR9, AGEGR9N, SEX, RACE, ETHNIC, COUNTRY, ARM, ACTARM, TRT01P, TRT01A, TRTSDTM, TRTSTMF, TRTSDT, TRTEDTM, TRTETMF, TRTEDT, RFSTDTC, RFENDTC, RFSTDT, RFENDT, DTHDTC, DTHFL, ITTFL, LSTAVLDT
+
+STEP 11: Running QC Checks...
+--------------------------------------------------------
+  [PASS] QC  1: One record per USUBJID (subject-level).
+  [PASS] QC  2: No missing STUDYID.
+  [PASS] QC  3: No missing USUBJID.
+  [PASS] QC  4: All AGEGR9 values are valid.
+  [PASS] QC  5: All AGEGR9N values are 1, 2, or 3.
+  [PASS] QC  6: AGEGR9 and AGEGR9N are consistent.
+  [PASS] QC  7: ITTFL only contains 'Y' or 'N'.
+  [PASS] QC  8: No missing ITTFL values.
+  [PASS] QC  9: TRTSDTM <= TRTEDTM for all subjects.
+  [PASS] QC 10: LSTAVLDT >= TRTSDT for all subjects.
+  [INFO] QC 11: 306 total subjects.
+  [INFO] QC 12: 306 subjects in ITT population.
+  [INFO] QC 13: 254 subjects treated.
+--------------------------------------------------------
+  OVERALL QC STATUS: ALL CRITICAL CHECKS PASSED
+
+STEP 12: Dataset Preview...
+--------------------------------------------------------
+
+  AGEGR9 frequency:
+
+    >50 18 - 50 
+    305       1 
+
+  AGEGR9N frequency:
+
+  2   3 
+  1 305 
+
+  ITTFL frequency:
+
+  Y 
+306 
+
+  TRTSTMF frequency (time imputation flag):
+
+   H <NA> 
+ 254   52 
+
+  LSTAVLDT summary:
+        Min.      1st Qu.       Median         Mean      3rd Qu.         Max. 
+"2012-08-13" "2013-06-03" "2013-10-14" "2013-10-20" "2014-03-12" "2015-03-05" 
+
+  First 5 rows (key variables):
+# A tibble: 5 × 8
+  USUBJID       AGE AGEGR9 AGEGR9N ITTFL TRTSDTM             TRTSTMF LSTAVLDT  
+  <chr>       <dbl> <chr>    <dbl> <chr> <dttm>              <chr>   <date>    
+1 01-701-1015    63 >50          3 Y     2014-01-02 00:00:00 H       2014-07-02
+2 01-701-1023    64 >50          3 Y     2012-08-05 00:00:00 H       2013-02-18
+3 01-701-1028    71 >50          3 Y     2013-07-19 00:00:00 H       2014-01-14
+4 01-701-1033    74 >50          3 Y     2014-03-18 00:00:00 H       2014-09-15
+5 01-701-1034    77 >50          3 Y     2014-07-01 00:00:00 H       2014-12-30
+
+  Full dataset structure:
+tibble [306 × 30] (S3: tbl_df/tbl/data.frame)
+ $ STUDYID : chr [1:306] "CDISCPILOT01" "CDISCPILOT01" "CDISCPILOT01" "CDISCPILOT01" ...
+  ..- attr(*, "label")= chr "Study Identifier"
+ $ USUBJID : chr [1:306] "01-701-1015" "01-701-1023" "01-701-1028" "01-701-1033" ...
+  ..- attr(*, "label")= chr "Unique Subject Identifier"
+ $ SUBJID  : chr [1:306] "1015" "1023" "1028" "1033" ...
+  ..- attr(*, "label")= chr "Subject Identifier for the Study"
+ $ SITEID  : chr [1:306] "701" "701" "701" "701" ...
+  ..- attr(*, "label")= chr "Study Site Identifier"
+ $ AGE     : num [1:306] 63 64 71 74 77 85 59 68 81 84 ...
+  ..- attr(*, "label")= chr "Age"
+ $ AGEU    : chr [1:306] "YEARS" "YEARS" "YEARS" "YEARS" ...
+  ..- attr(*, "label")= chr "Age Units"
+ $ AGEGR9  : chr [1:306] ">50" ">50" ">50" ">50" ...
+ $ AGEGR9N : num [1:306] 3 3 3 3 3 3 3 3 3 3 ...
+ $ SEX     : chr [1:306] "F" "M" "M" "M" ...
+  ..- attr(*, "label")= chr "Sex"
+ $ RACE    : chr [1:306] "WHITE" "WHITE" "WHITE" "WHITE" ...
+  ..- attr(*, "label")= chr "Race"
+ $ ETHNIC  : chr [1:306] "HISPANIC OR LATINO" "HISPANIC OR LATINO" "NOT HISPANIC OR LATINO" "NOT HISPANIC OR LATINO" ...
+  ..- attr(*, "label")= chr "Ethnicity"
+ $ COUNTRY : chr [1:306] "USA" "USA" "USA" "USA" ...
+  ..- attr(*, "label")= chr "Country"
+ $ ARM     : chr [1:306] "Placebo" "Placebo" "Xanomeline High Dose" "Xanomeline Low Dose" ...
+  ..- attr(*, "label")= chr "Description of Planned Arm"
+ $ ACTARM  : chr [1:306] "Placebo" "Placebo" "Xanomeline High Dose" "Xanomeline Low Dose" ...
+  ..- attr(*, "label")= chr "Description of Actual Arm"
+ $ TRT01P  : chr [1:306] "Placebo" "Placebo" "Xanomeline High Dose" "Xanomeline Low Dose" ...
+  ..- attr(*, "label")= chr "Description of Planned Arm"
+ $ TRT01A  : chr [1:306] "Placebo" "Placebo" "Xanomeline High Dose" "Xanomeline Low Dose" ...
+  ..- attr(*, "label")= chr "Description of Actual Arm"
+ $ TRTSDTM : POSIXct[1:306], format: "2014-01-02" "2012-08-05" ...
+ $ TRTSTMF : chr [1:306] "H" "H" "H" "H" ...
+ $ TRTSDT  : Date[1:306], format: "2014-01-02" "2012-08-05" ...
+ $ TRTEDTM : POSIXct[1:306], format: "2014-07-02 23:59:59" "2012-09-01 23:59:59" ...
+ $ TRTETMF : chr [1:306] "H" "H" "H" "H" ...
+ $ TRTEDT  : Date[1:306], format: "2014-07-02" "2012-09-01" ...
+ $ RFSTDTC : chr [1:306] "2014-01-02" "2012-08-05" "2013-07-19" "2014-03-18" ...
+  ..- attr(*, "label")= chr "Subject Reference Start Date/Time"
+ $ RFENDTC : chr [1:306] "2014-07-02" "2012-09-02" "2014-01-14" "2014-04-14" ...
+  ..- attr(*, "label")= chr "Subject Reference End Date/Time"
+ $ RFSTDT  : Date[1:306], format: "2014-01-02" "2012-08-05" ...
+ $ RFENDT  : Date[1:306], format: "2014-07-02" "2012-09-02" ...
+ $ DTHDTC  : chr [1:306] NA NA NA NA ...
+  ..- attr(*, "label")= chr "Date/Time of Death"
+ $ DTHFL   : chr [1:306] NA NA NA NA ...
+  ..- attr(*, "label")= chr "Subject Death Flag"
+ $ ITTFL   : chr [1:306] "Y" "Y" "Y" "Y" ...
+ $ LSTAVLDT: Date[1:306], format: "2014-07-02" "2013-02-18" ...
+ - attr(*, "label")= chr "Demographics"
+
+STEP 13: Saving output files...
+  Saved: adsl.rds
+  Saved: adsl.csv
+
+=============================================================
+  ADSL Creation COMPLETE
+  Finished   : 2026-04-09 15:21:16
+  Subjects   : 306
+  Variables  : 30
+  ITT subjects: 306
+  Outputs    : adsl.rds, adsl.csv, question_2_log.txt
+=============================================================
