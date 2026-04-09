@@ -1,0 +1,146 @@
+=============================================================
+  SDTM DS Domain Creation Log
+  Roche/Genentech ADS Programmer Assessment - Question 1
+  Run Timestamp: 2026-04-09 14:51:09
+=============================================================
+
+STEP 1: Defining Study Controlled Terminology (study_ct)...
+  Rows  : 10
+  Terms : ADVERSE EVENT, COMPLETED, DEATH, LACK OF EFFICACY, LOST TO FOLLOW-UP, PHYSICIAN DECISION, PROTOCOL VIOLATION, SCREEN FAILURE, STUDY TERMINATED BY SPONSOR, WITHDRAWAL BY SUBJECT
+
+STEP 2: Loading pharmaverseraw::ds_raw...
+  Rows   : 850
+  Columns: 13
+  Names  : STUDY, PATNUM, SITENM, INSTANCE, FORM, FORML, IT.DSTERM, IT.DSDECOD, OTHERSP, DSDTCOL, DSTMCOL, IT.DSSTDAT, DEATHDT
+
+  First 3 rows:
+# A tibble: 3 × 13
+  STUDY  PATNUM SITENM INSTANCE FORM  FORML IT.DSTERM IT.DSDECOD OTHERSP DSDTCOL
+  <chr>  <chr>  <chr>  <chr>    <chr> <chr> <chr>     <chr>      <chr>   <chr>  
+1 CDISC… 701-1… CDISC… Baseline DISC1 Subj… Randomiz… Randomized <NA>    01-02-…
+2 CDISC… 701-1… CDISC… Week 26  DISC1 Subj… Protocol… Completed  <NA>    07-02-…
+3 CDISC… 701-1… CDISC… Week 26  DISC1 Subj… <NA>      <NA>       Final … 07-02-…
+# ℹ 3 more variables: DSTMCOL <chr>, IT.DSSTDAT <chr>, DEATHDT <chr>
+
+STEP 3: Adding sdtm.oak metadata via generate_oak_id_vars()...
+  oak metadata columns added: oak_id, raw_source, patient_number
+  Rows after metadata: 850
+
+STEP 4: Pre-processing raw variables for SDTM mapping...
+  Pre-processing complete.
+
+STEP 5: Deriving SDTM variables using {sdtm.oak} algorithms...
+
+  Deriving STUDYID (assign_no_ct)...
+  Deriving DOMAIN (hardcode_no_ct)...
+  Deriving USUBJID (assign_no_ct)...
+  Deriving DSTERM (assign_no_ct)...
+  Deriving DSDECOD (assign_ct with study_ct)...
+ℹ These terms could not be mapped per the controlled terminology: "Randomized", "Completed", "Study Terminated by Sponsor", "Screen Failure", and "Lost to Follow-Up".
+  Deriving DSCAT (hardcode_no_ct)...
+  Deriving VISITNUM (assign_no_ct)...
+  Deriving VISIT (assign_no_ct)...
+  Deriving DSDTC (assign_no_ct)...
+  Deriving DSSTDTC (assign_no_ct)...
+
+  All SDTM variables derived.
+
+STEP 6: Deriving DSSTDY using derive_study_day()...
+  DSSTDY derived.
+
+STEP 7: Deriving DSSEQ using derive_seq()...
+  DSSEQ derived.
+
+STEP 8: Selecting final 12 variables in SDTM order...
+  Final: 850 rows x 12 cols
+  Vars : STUDYID, DOMAIN, USUBJID, DSSEQ, DSTERM, DSDECOD, DSCAT, VISITNUM, VISIT, DSDTC, DSSTDTC, DSSTDY
+
+STEP 9: Running QC Checks...
+--------------------------------------------------------
+  [PASS] QC  1: All 12 required variables present.
+  [PASS] QC  2: DOMAIN = 'DS' for all records.
+  [PASS] QC  3: No missing STUDYID.
+  [PASS] QC  4: No missing USUBJID.
+  [PASS] QC  5: DSSEQ unique within each USUBJID.
+  [PASS] QC  6: DSSEQ sequential from 1 per subject.
+  [WARN] QC  7: 254 unrecognized DSDECOD: RANDOMIZED
+  [PASS] QC  8: All DSSTDTC are valid ISO 8601 dates.
+  [PASS] QC  9: No DSSTDY = 0 (day 0 invalid in SDTM).
+  [PASS] QC 10: Primary key (STUDYID+USUBJID+DSSEQ) unique.
+  [INFO] QC 11: 850 records / 306 subjects.
+--------------------------------------------------------
+  OVERALL QC STATUS: ALL CRITICAL CHECKS PASSED
+
+STEP 10: Dataset Preview...
+--------------------------------------------------------
+
+  DSDECOD frequency (CT mapping):
+
+              ADVERSE EVENT                   COMPLETED 
+                         92                         110 
+                      DEATH            LACK OF EFFICACY 
+                          3                           4 
+          LOST TO FOLLOW-UP          PHYSICIAN DECISION 
+                          2                           3 
+         PROTOCOL VIOLATION                  RANDOMIZED 
+                          6                         254 
+             SCREEN FAILURE STUDY TERMINATED BY SPONSOR 
+                         52                           7 
+      WITHDRAWAL BY SUBJECT                        <NA> 
+                         27                         290 
+
+  DSCAT frequency:
+
+DISPOSITION EVENT 
+              850 
+
+  VISIT frequency:
+
+Ambul Ecg Removal          Baseline         Retrieval       Screening 1 
+                4               254                37                57 
+  Unscheduled 1.1  Unscheduled 13.1   Unscheduled 4.1   Unscheduled 5.1 
+                2                 1                 1                 1 
+  Unscheduled 6.1   Unscheduled 8.2           Week 12           Week 16 
+                1                 2                51                33 
+           Week 2           Week 20           Week 24           Week 26 
+               46                27                14               219 
+           Week 4            Week 6            Week 8 
+               27                42                31 
+
+  First 5 rows:
+# A tibble: 5 × 12
+  STUDYID DOMAIN USUBJID DSSEQ DSTERM DSDECOD DSCAT VISITNUM VISIT DSDTC DSSTDTC
+  <chr>   <chr>  <chr>   <int> <chr>  <chr>   <chr>    <dbl> <chr> <chr> <chr>  
+1 CDISCP… DS     CDISCP…     1 Rando… RANDOM… DISP…        1 Base… 2014… 2014-0…
+2 CDISCP… DS     CDISCP…     2 Proto… COMPLE… DISP…        9 Week… 2014… 2014-0…
+3 CDISCP… DS     CDISCP…     3 Final… <NA>    DISP…        9 Week… 2014… 2014-0…
+4 CDISCP… DS     CDISCP…     1 Rando… RANDOM… DISP…        1 Base… 2012… 2012-0…
+5 CDISCP… DS     CDISCP…     2 Adver… ADVERS… DISP…        3 Week… 2012… 2012-0…
+# ℹ 1 more variable: DSSTDY <int>
+
+  Structure:
+tibble [850 × 12] (S3: tbl_df/tbl/data.frame)
+ $ STUDYID : chr [1:850] "CDISCPILOT01" "CDISCPILOT01" "CDISCPILOT01" "CDISCPILOT01" ...
+ $ DOMAIN  : chr [1:850] "DS" "DS" "DS" "DS" ...
+ $ USUBJID : chr [1:850] "CDISCPILOT01-701-1015" "CDISCPILOT01-701-1015" "CDISCPILOT01-701-1015" "CDISCPILOT01-701-1023" ...
+ $ DSSEQ   : int [1:850] 1 2 3 1 2 3 4 1 2 3 ...
+ $ DSTERM  : chr [1:850] "Randomized" "Protocol Completed" "Final Lab Visit" "Randomized" ...
+ $ DSDECOD : chr [1:850] "RANDOMIZED" "COMPLETED" NA "RANDOMIZED" ...
+ $ DSCAT   : chr [1:850] "DISPOSITION EVENT" "DISPOSITION EVENT" "DISPOSITION EVENT" "DISPOSITION EVENT" ...
+ $ VISITNUM: num [1:850] 1 9 9 1 3 3 NA 1 9 9 ...
+ $ VISIT   : chr [1:850] "Baseline" "Week 26" "Week 26" "Baseline" ...
+ $ DSDTC   : chr [1:850] "2014-01-02" "2014-07-02" "2014-07-02" "2012-08-05" ...
+ $ DSSTDTC : chr [1:850] "2014-01-02" "2014-07-02" "2014-07-02" "2012-08-05" ...
+ $ DSSTDY  : int [1:850] 1 182 182 1 29 29 198 1 180 180 ...
+
+STEP 11: Saving output files...
+  Saved: ds_domain.rds
+  Saved: ds_domain.csv
+
+=============================================================
+  DS Domain Creation COMPLETE
+  Finished : 2026-04-09 14:51:11
+  Records  : 850
+  Subjects : 306
+  Outputs  : ds_domain.rds, ds_domain.csv, question_1_log.txt
+=============================================================
