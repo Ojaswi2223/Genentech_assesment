@@ -1,0 +1,77 @@
+=============================================================
+  AE Summary Table Creation Log
+  Roche/Genentech ADS Programmer Assessment - Question 3
+  Run Timestamp: 2026-04-09 20:06:26.837985
+=============================================================
+
+STEP 1: Loading input datasets...
+  adae rows: 1191 | cols: 107
+  adsl rows: 306 | cols: 55
+
+STEP 2: Filtering to TEAEs (TRTEMFL == 'Y')...
+  Safety population subjects : 254
+  TEAE records               : 1122
+  Unique subjects with TEAEs : 217
+
+  Treatment arm distribution (safety population):
+
+             Placebo Xanomeline High Dose  Xanomeline Low Dose 
+                  86                   72                   96 
+
+STEP 3: Preparing subject-level AE data for summary table...
+  Subject-level AE records (deduplicated): 779
+  Denominator (N per arm):
+# A tibble: 3 × 2
+  ACTARM               N_ARM
+  <chr>                <int>
+1 Placebo                 86
+2 Xanomeline High Dose    72
+3 Xanomeline Low Dose     96
+
+  SOC ordering (by descending frequency):
+ [1] "GENERAL DISORDERS AND ADMINISTRATION SITE CONDITIONS"               
+ [2] "SKIN AND SUBCUTANEOUS TISSUE DISORDERS"                             
+ [3] "NERVOUS SYSTEM DISORDERS"                                           
+ [4] "GASTROINTESTINAL DISORDERS"                                         
+ [5] "CARDIAC DISORDERS"                                                  
+ [6] "INFECTIONS AND INFESTATIONS"                                        
+ [7] "PSYCHIATRIC DISORDERS"                                              
+ [8] "RESPIRATORY, THORACIC AND MEDIASTINAL DISORDERS"                    
+ [9] "INVESTIGATIONS"                                                     
+[10] "MUSCULOSKELETAL AND CONNECTIVE TISSUE DISORDERS"                    
+[11] "INJURY, POISONING AND PROCEDURAL COMPLICATIONS"                     
+[12] "RENAL AND URINARY DISORDERS"                                        
+[13] "METABOLISM AND NUTRITION DISORDERS"                                 
+[14] "VASCULAR DISORDERS"                                                 
+[15] "EYE DISORDERS"                                                      
+[16] "SURGICAL AND MEDICAL PROCEDURES"                                    
+[17] "EAR AND LABYRINTH DISORDERS"                                        
+[18] "CONGENITAL, FAMILIAL AND GENETIC DISORDERS"                         
+[19] "NEOPLASMS BENIGN, MALIGNANT AND UNSPECIFIED (INCL CYSTS AND POLYPS)"
+[20] "REPRODUCTIVE SYSTEM AND BREAST DISORDERS"                           
+[21] "HEPATOBILIARY DISORDERS"                                            
+[22] "IMMUNE SYSTEM DISORDERS"                                            
+[23] "SOCIAL CIRCUMSTANCES"                                               
+attr(,"label")
+[1] "Primary System Organ Class"
+
+STEP 4: Building AE summary table using tbl_hierarchical()...
+  Table built successfully.
+
+STEP 5: Saving AE summary table as HTML...
+  Saved: ae_summary_table.html
+
+STEP 6: QC Summary...
+--------------------------------------------------------
+  Total TEAE records    : 1122
+  Safety population N   : 254
+  Subjects with TEAEs   : 217
+  Unique SOCs           : 23
+  Unique AE terms       : 230
+--------------------------------------------------------
+
+=============================================================
+  AE Summary Table Creation COMPLETE
+  Finished  : 2026-04-09 20:06:39.068098
+  Output    : ae_summary_table.html
+=============================================================

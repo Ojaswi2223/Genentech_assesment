@@ -1,0 +1,61 @@
+=============================================================
+  AE Visualizations Log
+  Roche/Genentech ADS Programmer Assessment - Question 3
+  Run Timestamp: 2026-04-09 20:17:24.101717
+=============================================================
+
+STEP 1: Loading input datasets...
+  TEAE records: 1122
+  Safety population: 254 subjects
+
+STEP 2: Creating Plot 1 — AE Severity Distribution by Treatment...
+  Severity data summary:
+# A tibble: 9 × 3
+  ACTARM               AESEV     n_ae
+  <fct>                <fct>    <int>
+1 Placebo              Mild       210
+2 Placebo              Moderate    65
+3 Placebo              Severe       6
+4 Xanomeline Low Dose  Mild       232
+5 Xanomeline Low Dose  Moderate   170
+6 Xanomeline Low Dose  Severe      25
+7 Xanomeline High Dose Mild       286
+8 Xanomeline High Dose Moderate   118
+9 Xanomeline High Dose Severe      10
+
+  Saved: plot1_ae_severity.png
+
+STEP 3: Creating Plot 2 — Top 10 AEs with 95% CI...
+  Top 10 AEs by incidence rate:
+# A tibble: 10 × 5
+   AETERM                      n_subj  rate ci_lo ci_hi
+   <fct>                        <int> <dbl> <dbl> <dbl>
+ 1 PRURITUS                        54  21.3  16.4  26.8
+ 2 APPLICATION SITE PRURITUS       50  19.7  15    25.1
+ 3 ERYTHEMA                        36  14.2  10.1  19.1
+ 4 APPLICATION SITE ERYTHEMA       30  11.8   8.1  16.4
+ 5 RASH                            26  10.2   6.8  14.6
+ 6 APPLICATION SITE DERMATITIS     21   8.3   5.2  12.4
+ 7 APPLICATION SITE IRRITATION     21   8.3   5.2  12.4
+ 8 DIZZINESS                       21   8.3   5.2  12.4
+ 9 DIARRHOEA                       17   6.7   3.9  10.5
+10 SINUS BRADYCARDIA               17   6.7   3.9  10.5
+
+`height` was translated to `width`.
+  Saved: plot2_top10_ae.png
+
+STEP 4: QC Summary...
+--------------------------------------------------------
+  Total TEAE records  : 1122
+  Safety population N : 254
+  Unique AE terms     : 230
+  Severity levels     : MILD, MODERATE, SEVERE
+  Plot 1 saved        : plot1_ae_severity.png
+  Plot 2 saved        : plot2_top10_ae.png
+--------------------------------------------------------
+
+=============================================================
+  AE Visualizations COMPLETE
+  Finished : 2026-04-09 20:17:28.83134
+  Outputs  : plot1_ae_severity.png, plot2_top10_ae.png
+=============================================================
